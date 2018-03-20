@@ -2,16 +2,27 @@
 
 class FileList
 {
-
+    /**
+     * метод получения массива с атрибутами файлов в папке
+     */
     public function readFiles()
     {
+        /**
+         * создание
+         */
         $fileList = [];
         $fileNames = scandir(FileUploader::FILE_DIR);
-        foreach ($fileNames as $key => $fileName) {
-            // Scandir returns . and .. link current folder and parent folder,
-            // so we need to skip it.
-            if ($fileName == '.' || $fileName == '..') {
+        foreach ($fileNames as $key => $fileName)
+        {
+            /**
+             *  Scandir возвращает . и .., их нужно пропустить
+             */
+            if ($fileName == '.' || $fileName == '..')
+            {
                 continue;
+                /**
+                 * создание многомерного массива с атрибутами файлов в папке
+                 */
             }
             $size = filesize(FileUploader::FILE_DIR . $fileName);
             $fileDate = filemtime(FileUploader::FILE_DIR . $fileName);
@@ -24,6 +35,9 @@ class FileList
 
     }
 
+    /**
+     * метод для построения строк в таблице файлов, находящихся в папке
+     */
     public function listFiles()
     {
         $list = $this->readFiles();
@@ -34,7 +48,7 @@ class FileList
             $fileDate = date('d M Y H:i:s', $item['date']);
             $table .= "
             <tr>
-            <form action='' method='post'>
+            <form action='' method='POST'>
             <td>$name</td>
             <td>$size</td>
             <td>$fileDate</td>
