@@ -28,9 +28,12 @@ if (!empty($_POST['delete']))
 /**
  *  Создание объекта fileUploader и присвоение переменной uploadresult результата метода fileupload
  */
+
+if (!empty($_FILES['userfile']))
+{
 $fileUploader = new FileUploader();
 $result = $fileUploader->fileupload(basename($_FILES['userfile']['name']), $_FILES['userfile']['tmp_name']);
-
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -90,9 +93,10 @@ if (count(scandir(FileUploader::FILE_DIR))!= 2)
 /**
   * вывод результата загрузки файла
   */
-
+if (!empty($result))
+{
     echo $result;
-
+}
 ?>
 
 </body>
